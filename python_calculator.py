@@ -40,28 +40,43 @@ def Multiplication():
     entry.delete(0, tk.END)
 
 
+def Save_results(results):
+    with open("history.csv", "a", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow([results])
+    file.close()
+
+
 def Equal():
     global First_number
     global operator
     Second_number = int(entry.get())
+
     try:
         if operator == "addition":
             entry.delete(0, tk.END)
             result = First_number + Second_number
             entry.insert(0, result)
+            Save_results(result)
 
         elif operator == "Substraction":
             entry.delete(0, tk.END)
             result = First_number - Second_number
             entry.insert(0, result)
+            Save_results(result)
         elif operator == "Division":
             entry.delete(0, tk.END)
             result = First_number / Second_number
             entry.insert(0, result)
+            Save_results(result)
         elif operator == "Multiplication":
             entry.delete(0, tk.END)
             result = First_number * Second_number
             entry.insert(0, result)
+            Save_results(result)
+
+    except SyntaxError:
+        entry.insert(0, "Syntax Error")
 
     except ValueError:
         entry.insert(0, "Syntax Error")
